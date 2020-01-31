@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta content="IE=edge" http-equiv="X-UA-Compatible">
+        <meta content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
+        <meta content="yes" name="mobile-web-app-capable">
+        <meta content="yes" name="apple-mobile-web-app-capable">
+        <link href="css/leaflet.css" rel="stylesheet"><link href="css/L.Control.Locate.min.css" rel="stylesheet">
+        <link href="css/qgis2web.css" rel="stylesheet"><link href="css/fontawesome-all.min.css" rel="stylesheet">
+        <link href="css/leaflet-control-geocoder.Geocoder.css" rel="stylesheet">
+        <style>
+            html,
+            body,
+            #map {
+                width: 100%;
+                height: 100%;
+                padding: 0;
+                margin: 0;
+            }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map"></div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="data/DetectedObjects_1.js"></script>
+        <script>
+            /* var highlightLayer;
+            function highlightFeature(e) {
+                highlightLayer = e.target;
+
+                if (e.target.feature.geometry.type === 'LineString') {
+                    highlightLayer.setStyle({color: '#ffff00'});
+                } else {
+                    highlightLayer.setStyle({fillColor: '#ffff00', fillOpacity: 1});
+                }
+                highlightLayer.openPopup();
+            }*/
+            var map = L.map('map', {
+                zoomControl: true,
+                maxZoom: 28,
+                minZoom: 1
+            }).fitBounds([
+                [
+                    -3.469920616759423, -63.14066752899742
+                ],
+                [
+                    69.38445980465809, 78.7879270721079
+                ]
+            ]);
+            var hash = new L.Hash(map);
+            map.attributionControl.setPrefix('<a href="https://merkator.com" target="_blank">Merkator</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot;');
+            L.control.locate({
+                locateOptions: {
+                    maxZoom: 19
+                }
+            }).addTo(map);
+            var bounds_group = new L.featureGroup([]);
+            function setBounds() {}
+            var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                opacity: 1.0,
+                attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+                minZoom: 1,
+                maxZoom: 28,
+                minNativeZoom: 0,
+                maxNativeZoom: 19
+            });
+            layer_OSMStandard_0;
+            map.addLayer(layer_OSMStandard_0);
+            mapLink = '<a href="http://www.esri.com/">Esri</a>';
+            wholink = 'i-cubed';
+
+            var Satellite = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: '&copy; ' + mapLink + ', ' + wholink,
+                maxZoom: 28
+            });
+            Satellite;
+            map.addLayer(Satellite);
+
+ 
+            // map.addLayer(layer_DetectedObjects_1);
+            var osmGeocoder = new L.Control.Geocoder({collapsed: true, position: 'topleft', text: 'Search', title: 'Testing'}).addTo(map);
+            document.getElementsByClassName('leaflet-control-geocoder-icon')[0].className += ' fa fa-search';
+            document.getElementsByClassName('leaflet-control-geocoder-icon')[0].title += 'Search for a place';
+            var baseMaps = {};
+            L.control.layers(baseMaps, { // '<img src="legend/DetectedObjects_1.png" /> DetectedObjects': layer_DetectedObjects_1,
+                "OSM Standard": layer_OSMStandard_0,
+                "Satellite": Satellite
+            }, {collapsed: false}).addTo(map);
+            setBounds();
+            L.control.scale().addTo(map);
+
+            var LeafIcon = L.Icon.extend({
+                options: {
+
+                    iconSize: [
+                        20, 20
+                    ],
+                    shadowSize: [
+                        50, 64
+                    ],
+                    iconAnchor: [
+                        0, 0
+                    ],
+                    shadowAnchor: [
+                        4, 62
+                    ],
+                    popupAnchor: [0, 0]
+                }
+            });
+            var bird = new LeafIcon({iconUrl: 'markers/black_bird.svg'})
+            /*  var locationIcon = L.Icon.extend({
+                options: {
+
+                    iconSize: [
+                        20, 20
+                    ],
+                    shadowSize: [
+                        50, 64
+                    ],
+                    iconAnchor: [
+                        0, 0
+                    ],
+                    shadowAnchor: [
+                        4, 62
+                    ],
+                    popupAnchor: [0, 0]
+                }
+            });
+            var bird = new locationIcon({iconUrl: 'markers/location.svg'})*/
+
+            var allbirds =[];
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://geodrone-rest-api.herokuapp.com/items", true);
+            xhr.onload = function (e) {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+
+                        var response = xhr.responseText;
+                        var arr = JSON.parse(response);
+                        console.log(arr.items);
+                        console.log(arr.items[0].latitude);
+
+                        for (var i = 0; i < arr.items.length; i++) {
+                            console.log(arr.items[i].latitude)
+                           var marker =  L.marker([
+                                arr.items[i].longitude,
+                                arr.items[i].latitude
+                            ], {
+                                icon: bird,
+                                //draggable: true
+                            }).bindPopup(arr.items[i].name + " Acc." + arr.items[i].score).addTo(map);
+                            allbirds.push(marker);
+                        }
+                    } else {
+                        console.error(xhr.statusText);
+                    }
+                }
+            };
+            xhr.onerror = function (e) {
+                console.error(xhr.statusText);
+            };
+            xhr.send(null);
+
+            // Update users location and watch to show user tracks
+            function onLocationFound(e) {
+                var radius = e.accuracy / 2;
+                L.marker(e.latlng).addTo(map).bindPopup("Accuracy: " + radius);
+               var circle= L.circle(
+                    e.latlng, radius
+                ).addTo(map);
+
+
+
+//Geofencing
+               for (var b = 0; b < allbirds.length; b++){
+                   console.log(allbirds.length)
+
+                   var d = map.distance(allbirds[b]['_latlng'], circle.getLatLng());
+                   var isInside = d < circle.getRadius();
+                   console.log(isInside);
+                   if (isInside){
+                       console.log("Geofencing")
+                       alert("Bird detected location")
+                       }
+                   //console.log(d)
+
+               }
+
+
+                
+
+
+
+                //var d = map.distance(e.latlng, circle.getLatLng());
+                //console.log(e.latlng)
+                //console.log(circle.getLatLng())    
+
+                //var isInside = d < circle.getRadius();
+                //console.log(isInside);
+                //if (isInside){
+                    //console.log("Geofencing")
+               // }
+                       
+            }
+
+            map.on('locationfound', onLocationFound);
+            map.locate({setView: true, watch: true, maxZoom: 8}); // watch :true sets the users location to tracking
+
+        </script>
+    </body>
+</html>
