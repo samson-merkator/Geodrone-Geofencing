@@ -141,7 +141,7 @@
 
             var allbirds =[];
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", "http://geodrone-rest-api.herokuapp.com/items", true);
+            xhr.open("GET", "https://geodrone-rest-api.herokuapp.com/items", true);
             xhr.onload = function (e) {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
