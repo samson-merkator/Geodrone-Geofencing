@@ -171,9 +171,48 @@
                 console.error(xhr.statusText);
             };
             xhr.send(null);
+            
+                   var markerup = null;
+
+        // Update users location and watch to show user tracks
+        function onLocationFound(e) {
+            var radius = e.accuracy / 2;
+            if (markerup !== null) {
+                map.removeLayer(markerup);
+            }
+            markerup = L.marker(e.latlng).addTo(map);
+            /* L.circleMarker(e.latlng, {
+                color: '#136AEC',
+                fillColor: '#2A93EE',
+                fillOpacity: 0.7,
+                weight: 2,
+                opacity: 0.9,
+                radius: 4
+            }).addTo(map).bindPopup("Accuracy: " + radius);*/
+            var circle = L.circle(e.latlng, radius).addTo(map);
+
+
+            // Geofencing
+            for (var b = 0; b < allbirds.length; b++) {
+                console.log(allbirds.length)
+
+                var d = map.distance(allbirds[b]['_latlng'], circle.getLatLng());
+                var isInside = d < circle.getRadius();
+                console.log(isInside);
+                if (isInside) {
+                    console.log("Geofencing")
+                    alert("Bird detected location")
+                }
+                // console.log(d)
+
+            }
+
+        }
+        map.on('locationfound', onLocationFound);
+        map.locate({setView: true, maxZoom: 16, watch: true, enableHighAccuracy: true}); // watch :true sets the users location to tracking
 
             // Update users location and watch to show user tracks
-            function onLocationFound(e) {
+            /*function onLocationFound(e) {
                 var radius = e.accuracy / 2;
                 L.marker(e.latlng).addTo(map).bindPopup("Accuracy: " + radius);
                var circle= L.circle(
@@ -215,7 +254,7 @@
             }
 
             map.on('locationfound', onLocationFound);
-            map.locate({setView: true, watch: true, maxZoom: 8}); // watch :true sets the users location to tracking
+            map.locate({setView: true, watch: true, maxZoom: 8}); */// watch :true sets the users location to tracking
 
         </script>
     </body>
