@@ -177,7 +177,7 @@
 
         // Update users location and watch to show user tracks
         function onLocationFound(e) {
-            var radius = e.accuracy / 2;
+            var radius = e.accuracy / 5; //Ideally it should be 2 in meters
             if (markerup !== null) {
                 map.removeLayer(markerup);
                 map.removeLayer(circle);
