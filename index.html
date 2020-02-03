@@ -173,12 +173,14 @@
             xhr.send(null);
             
                    var markerup = null;
+            var circle = null;
 
         // Update users location and watch to show user tracks
         function onLocationFound(e) {
             var radius = e.accuracy / 2;
             if (markerup !== null) {
                 map.removeLayer(markerup);
+                map.removeLayer(circle);
             }
             markerup = L.marker(e.latlng).addTo(map);
             /* L.circleMarker(e.latlng, {
@@ -189,7 +191,7 @@
                 opacity: 0.9,
                 radius: 4
             }).addTo(map).bindPopup("Accuracy: " + radius);*/
-            var circle = L.circle(e.latlng, radius)//.addTo(map);
+            circle = L.circle(e.latlng, radius)//.addTo(map);
 
 
             // Geofencing
