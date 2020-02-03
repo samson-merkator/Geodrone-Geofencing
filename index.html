@@ -18,7 +18,7 @@
                 margin: 0;
             }
         </style>
-        <title></title>
+        <title>GEODRONE GEOFENCING</title>
     </head>
     <body>
         <div id="map"></div>
@@ -67,7 +67,7 @@
             }).addTo(map);
             var bounds_group = new L.featureGroup([]);
             function setBounds() {}
-            var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            var layer_OSMStandard_0 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 opacity: 1.0,
                 attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
                 minZoom: 1,
@@ -80,7 +80,7 @@
             mapLink = '<a href="http://www.esri.com/">Esri</a>';
             wholink = 'i-cubed';
 
-            var Satellite = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            var Satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
                 attribution: '&copy; ' + mapLink + ', ' + wholink,
                 maxZoom: 28
             });
