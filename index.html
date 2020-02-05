@@ -34,7 +34,7 @@
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
         <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
-        <script src="data/DetectedObjects_1.js"></script>
+
         <script>
             /* var highlightLayer;
             function highlightFeature(e) {
@@ -68,7 +68,7 @@
             }).addTo(map);
             var bounds_group = new L.featureGroup([]);
             function setBounds() {}
-            var layer_OSMStandard_0 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            /*var layer_OSMStandard_0 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             opacity: 1.0,
             attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
             minZoom: 1,
@@ -77,7 +77,7 @@
             maxNativeZoom: 19
         });
         layer_OSMStandard_0;
-        map.addLayer(layer_OSMStandard_0);
+        map.addLayer(layer_OSMStandard_0);*/
 
         var leafletstreet = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -103,7 +103,7 @@
             document.getElementsByClassName('leaflet-control-geocoder-icon')[0].title += 'Search for a place';
             var baseMaps = {};
             L.control.layers(baseMaps, { // '<img src="legend/DetectedObjects_1.png" /> DetectedObjects': layer_DetectedObjects_1,
-                "Standard": layer_OSMStandard_0,
+                //"Standard": layer_OSMStandard_0,
                 "Street":leafletstreet,
                 "Satellite": leaflet
             }, {collapsed: true}).addTo(map);
