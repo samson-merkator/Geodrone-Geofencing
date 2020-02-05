@@ -68,25 +68,33 @@
             var bounds_group = new L.featureGroup([]);
             function setBounds() {}
             var layer_OSMStandard_0 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                opacity: 1.0,
-                attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
-                minZoom: 1,
-                maxZoom: 28,
-                minNativeZoom: 0,
-                maxNativeZoom: 19
-            });
-            layer_OSMStandard_0;
-            map.addLayer(layer_OSMStandard_0);
-            mapLink = '<a href="http://www.esri.com/">Esri</a>';
-            wholink = 'i-cubed';
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMStandard_0;
+        map.addLayer(layer_OSMStandard_0);
 
-            var Satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-                attribution: '&copy; ' + mapLink + ', ' + wholink,
-                maxZoom: 28
-            });
-            Satellite;
-            map.addLayer(Satellite);
+        var leafletstreet = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 22,
+            id: 'mapbox/streets-v11',
+            accessToken: 'pk.eyJ1IjoiYm9hZGlzYW1zb24iLCJhIjoiY2szb2Q1azN6MDdkeTNjbXUwbWhxeGo0bCJ9.3IqHR8qNvkvX9rgeddbqxA'
+        })
+        leafletstreet;
+        map.addLayer(leafletstreet)
 
+        var leaflet = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 22,
+            id: 'mapbox/satellite-v9',
+            accessToken: 'pk.eyJ1IjoiYm9hZGlzYW1zb24iLCJhIjoiY2szb2Q1azN6MDdkeTNjbXUwbWhxeGo0bCJ9.3IqHR8qNvkvX9rgeddbqxA'
+        })
+        leaflet;
+        map.addLayer(leaflet)
  
             // map.addLayer(layer_DetectedObjects_1);
             var osmGeocoder = new L.Control.Geocoder({collapsed: true, position: 'topleft', text: 'Search', title: 'Testing'}).addTo(map);
@@ -95,7 +103,8 @@
             var baseMaps = {};
             L.control.layers(baseMaps, { // '<img src="legend/DetectedObjects_1.png" /> DetectedObjects': layer_DetectedObjects_1,
                 "OSM Standard": layer_OSMStandard_0,
-                "Satellite": Satellite
+                "Street":leafletstreet,
+                "Satellite": leaflet
             }, {collapsed: false}).addTo(map);
             setBounds();
             L.control.scale().addTo(map);
