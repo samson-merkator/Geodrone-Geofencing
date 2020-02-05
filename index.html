@@ -189,12 +189,12 @@
 
         // Update users location and watch to show user tracks
         function onLocationFound(e) {
-            var radius = e.accuracy / 5;
+            var radius = e.accuracy / 2;
             if (markerup !== null) {
                 map.removeLayer(markerup);
                 map.removeLayer(circle);
             }
-            markerup = L.marker(e.latlng).addTo(map).bindPopup("Accuracy: " + radius);
+            markerup = L.marker(e.latlng).addTo(map).bindPopup("Accuracy: " + radius +"m");
             /* L.circleMarker(e.latlng, {
                 color: '#136AEC',
                 fillColor: '#2A93EE',
