@@ -1,91 +1,79 @@
 <!DOCTYPE html>
-    <head>
-        <meta charset="utf-8">
-        <meta content="IE=edge" http-equiv="X-UA-Compatible">
-        <meta content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
-        <meta content="yes" name="mobile-web-app-capable">
-        <meta content="yes" name="apple-mobile-web-app-capable">
-            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
+    <meta content="yes" name="mobile-web-app-capable">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+ 
+   <!-- <link rel="stylesheet" href="./fullscreen.css" />-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
    crossorigin=""/>
    <!-- Make sure you put this AFTER Leaflet's CSS -->
+
  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
  integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
  crossorigin=""></script>
-        <link href="css/leaflet.css" rel="stylesheet"><link href="css/L.Control.Locate.min.css" rel="stylesheet">
-        <link href="css/qgis2web.css" rel="stylesheet"><link href="css/fontawesome-all.min.css" rel="stylesheet">
-        <link href="css/leaflet-control-geocoder.Geocoder.css" rel="stylesheet">
-        <script src="js/leaflet.rotatedMarker.js"></script>
-        <style>
-            html,
-            body,
-            #map {
-                width: 100%;
-                height: 100%;
-                padding: 0;
-                margin: 0;
-            }
-        </style>
-        <title>GEODRONE GEOFENCING</title>
-    </head>
-    <body>
-        <div id="map"></div>
-        <script src="js/qgis2web_expressions.js"></script>
-        <script src="js/leaflet.js"></script>
-        <script src="js/L.Control.Locate.min.js"></script>
-        <script src="js/leaflet.rotatedMarker.js"></script>
-        <script src="js/leaflet.pattern.js"></script>
-        <script src="js/leaflet-hash.js"></script>
-        <script src="js/Autolinker.min.js"></script>
-        <script src="js/rbush.min.js"></script>
-        <script src="js/labelgun.min.js"></script>
-        <script src="js/labels.js"></script>
-        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
-         <script src="js/leaflet.rotatedMarker.js"></script>
+ <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js" type="text/javascript"></script>
+ <!-- Leaflet Plugins -->
 
-        <script>
-            /* var highlightLayer;
-            function highlightFeature(e) {
-                highlightLayer = e.target;
 
-                if (e.target.feature.geometry.type === 'LineString') {
-                    highlightLayer.setStyle({color: '#ffff00'});
-                } else {
-                    highlightLayer.setStyle({fillColor: '#ffff00', fillOpacity: 1});
-                }
-                highlightLayer.openPopup();
-            }*/
-            var map = L.map('map', {
-                zoomControl: true,
-                maxZoom: 28,
-                minZoom: 1
-            }).fitBounds([
-                [
-                    -3.469920616759423, -63.14066752899742
-                ],
-                [
-                    69.38445980465809, 78.7879270721079
-                ]
-            ]);
-            var hash = new L.Hash(map);
-            map.attributionControl.setPrefix('<a href="https://merkator.com" target="_blank">Merkator</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot;');
-            L.control.locate({
-                locateOptions: {
-                    maxZoom: 19
-                }
-            }).addTo(map);
-            var bounds_group = new L.featureGroup([]);
-            function setBounds() {}
-            /*var layer_OSMStandard_0 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            opacity: 1.0,
-            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
-            minZoom: 1,
+    <link href="css/leaflet.css" rel="stylesheet"><link href="css/L.Control.Locate.min.css" rel="stylesheet">
+    <link href="css/qgis2web.css" rel="stylesheet"><link href="css/fontawesome-all.min.css" rel="stylesheet">
+    <link href="css/leaflet-control-geocoder.Geocoder.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/Control.MiniMap.css" />
+    <script src="js/Control.MiniMap.js" type="text/javascript"></script>
+    <style>
+        html,
+        body,
+        #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+    <title></title>
+</head>
+<body>
+    <div id="map"></div>
+    <script src="js/qgis2web_expressions.js"></script>
+    <script src="js/leaflet.js"></script>
+    <script src="js/L.Control.Locate.min.js"></script>
+    <script src="js/leaflet.rotatedMarker.js"></script>
+    <script src="js/leaflet.pattern.js"></script>
+    <script src="js/leaflet-hash.js"></script>
+    <script src="js/Autolinker.min.js"></script>
+    <script src="js/rbush.min.js"></script>
+    <script src="js/labelgun.min.js"></script>
+    <script src="js/labels.js"></script>
+    <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+    <script src="js/leaflet.rotatedMarker.js"></script>
+    <script src="js/Control.MiniMap.js" type="text/javascript"></script>
+    <script>
+
+        var map = L.map('map', {
+            zoomControl: true,
             maxZoom: 28,
-            minNativeZoom: 0,
-            maxNativeZoom: 19
-        });
-        layer_OSMStandard_0;
-        map.addLayer(layer_OSMStandard_0);*/
+            minZoom: 1
+        }).fitBounds([
+            [
+                -3.469920616759423, -63.14066752899742
+            ],
+            [
+                69.38445980465809, 78.7879270721079
+            ]
+        ]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://merkator.com" target="_blank">Merkator</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot;');
+        L.control.locate({
+            locateOptions: {
+                maxZoom: 19
+            }
+        }).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {}
 
         var leafletstreet = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -102,115 +90,111 @@
             id: 'mapbox/satellite-v9',
             accessToken: 'pk.eyJ1IjoiYm9hZGlzYW1zb24iLCJhIjoiY2szb2Q1azN6MDdkeTNjbXUwbWhxeGo0bCJ9.3IqHR8qNvkvX9rgeddbqxA'
         })
+        
         leaflet;
         map.addLayer(leaflet)
+
+        var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+		var osmAttrib='Map data &copy; OpenStreetMap contributors';
+        var osm = new L.TileLayer(osmUrl, {minZoom: 5, maxZoom: 18, attribution: osmAttrib});
+        map.addLayer(osm);
+        map.setView(new L.LatLng(53.217154, 6.566229),10);
+        
+        //Plugin miniMap Note that you cannot use the same layer object again, as that will confuse the two map controls
+		var osm2 = new L.TileLayer(osmUrl, {minZoom: 0, maxZoom: 13, attribution: osmAttrib });
+		var miniMap = new L.Control.MiniMap(osm2, { toggleDisplay: true }).addTo(map);
  
-            // map.addLayer(layer_DetectedObjects_1);
-            var osmGeocoder = new L.Control.Geocoder({collapsed: true, position: 'topleft', text: 'Search', title: 'Testing'}).addTo(map);
-            document.getElementsByClassName('leaflet-control-geocoder-icon')[0].className += ' fa fa-search';
-            document.getElementsByClassName('leaflet-control-geocoder-icon')[0].title += 'Search for a place';
-            var baseMaps = {};
-            L.control.layers(baseMaps, { // '<img src="legend/DetectedObjects_1.png" /> DetectedObjects': layer_DetectedObjects_1,
-                //"Standard": layer_OSMStandard_0,
-                "Street":leafletstreet,
-                "Satellite": leaflet
-            }, {collapsed: true}).addTo(map);
-            setBounds();
-            L.control.scale().addTo(map);
-            
-                  // Add north arrow
+        var osmGeocoder = new L.Control.Geocoder({collapsed: true, position: 'topleft', text: 'Search', title: 'Testing'}).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0].className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0].title += 'Search for a place';
+         //osmGeocoder.addTo(map);
+        var baseMaps = {};
+        L.control.layers(baseMaps, { // '<img src="legend/DetectedObjects_1.png" /> DetectedObjects': layer_DetectedObjects_1,
+            //"Standard": layer_OSMStandard_0,
+            "Street": leafletstreet,
+            "Satellite": leaflet,
+            "osm":osm
+        }, {collapsed: true}).addTo(map);
+        setBounds();
+        L.control.scale().addTo(map);
+        // Add north arrow
 
         var north = L.control({position: "bottomright"});
         north.onAdd = function (map) {
             var div = L.DomUtil.create("div", "info legend");
-            div.innerHTML = '<img src="/markers/compass.svg">';
+            div.innerHTML = '<img src="/images/compass.svg">';
             return div;
         }
         north.addTo(map);
 
-            var LeafIcon = L.Icon.extend({
-                options: {
+        var LeafIcon = L.Icon.extend({
+            options: {
 
-                    iconSize: [
-                        20, 20
-                    ],
-                    shadowSize: [
-                        50, 64
-                    ],
-                    iconAnchor: [
-                        0, 0
-                    ],
-                    shadowAnchor: [
-                        4, 62
-                    ],
-                    popupAnchor: [0, 0]
-                }
-            });
-            var bird = new LeafIcon({iconUrl: 'markers/black_bird.svg'})
-            /*  var locationIcon = L.Icon.extend({
-                options: {
+                iconSize: [
+                    20, 20
+                ],
+                shadowSize: [
+                    50, 64
+                ],
+                iconAnchor: [
+                    0, 0
+                ],
+                shadowAnchor: [
+                    4, 62
+                ],
+                popupAnchor: [0, 0]
+            }
+        });
+        var bird = new LeafIcon({iconUrl: 'markers/black_bird.svg'})
 
-                    iconSize: [
-                        20, 20
-                    ],
-                    shadowSize: [
-                        50, 64
-                    ],
-                    iconAnchor: [
-                        0, 0
-                    ],
-                    shadowAnchor: [
-                        4, 62
-                    ],
-                    popupAnchor: [0, 0]
-                }
-            });
-            var bird = new locationIcon({iconUrl: 'markers/location.svg'})*/
+        
+        //var location = new LeafIcon({iconUrl: 'markers/locationarrow.svg'})
 
-            var allbirds =[];
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "https://cors-anywhere.herokuapp.com/http://geodrone-rest-api.herokuapp.com/items", true);
-            xhr.onload = function (e) {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
+        var allbirds = [];
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://cors-anywhere.herokuapp.com/http://geodrone-rest-api.herokuapp.com/items", true);
+        xhr.onload = function (e) {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
 
-                        var response = xhr.responseText;
-                        var arr = JSON.parse(response);
-                        console.log(arr.items);
-                        console.log(arr.items[0].latitude);
+                    var response = xhr.responseText;
+                    var arr = JSON.parse(response);
+                    console.log(arr.items);
+                    console.log(arr.items[0].latitude);
 
-                        for (var i = 0; i < arr.items.length; i++) {
-                            console.log(arr.items[i].latitude)
-                           var marker =  L.marker([
-                                arr.items[i].longitude,
-                                arr.items[i].latitude
-                            ], {
-                                icon: bird,
-                                //draggable: true
-                            }).bindPopup(arr.items[i].name + " Acc." + arr.items[i].score).addTo(map);
-                            allbirds.push(marker);
-                        }
-                    } else {
-                        console.error(xhr.statusText);
+                    for (var i = 0; i < arr.items.length; i++) {
+                        console.log(arr.items[i].latitude)
+                        var marker = L.marker([
+                            arr.items[i].longitude,
+                            arr.items[i].latitude
+                        ], {
+                            icon: bird,
+                            // draggable: true
+                        }).bindPopup(arr.items[i].name + " Acc." + arr.items[i].score).addTo(map);
+                        allbirds.push(marker);
                     }
+                } else {
+                    console.error(xhr.statusText);
                 }
-            };
-            xhr.onerror = function (e) {
-                console.error(xhr.statusText);
-            };
-            xhr.send(null);
-            
-                   var markerup = null;
-            var circle = null;
+            }
+        };
+        xhr.onerror = function (e) {
+            console.error(xhr.statusText);
+        };
+        xhr.send(null);
+
+
+        var markerup = null;
+        var circle = null;
 
         // Update users location and watch to show user tracks
         function onLocationFound(e) {
-            var radius = e.accuracy / 5; //Ideally it should be 2 in meters
+            var radius = e.accuracy / 5;
             if (markerup !== null) {
                 map.removeLayer(markerup);
                 map.removeLayer(circle);
             }
-            markerup = L.marker(e.latlng).addTo(map);
+            markerup = L.marker(e.latlng).addTo(map).bindPopup("Accuracy: " + radius);
             /* L.circleMarker(e.latlng, {
                 color: '#136AEC',
                 fillColor: '#2A93EE',
@@ -231,7 +215,7 @@
                 console.log(isInside);
                 if (isInside) {
                     console.log("Geofencing")
-                    alert("Bird detected in your location")
+                    alert("Bird detected location" )
                 }
                 // console.log(d)
 
@@ -239,53 +223,6 @@
 
         }
         map.on('locationfound', onLocationFound);
-        map.locate({setView: true, maxZoom: 22, watch: true, enableHighAccuracy: true}); // watch :true sets the users location to tracking
-
-            // Update users location and watch to show user tracks
-            /*function onLocationFound(e) {
-                var radius = e.accuracy / 2;
-                L.marker(e.latlng).addTo(map).bindPopup("Accuracy: " + radius);
-               var circle= L.circle(
-                    e.latlng, radius
-                ).addTo(map);
-
-
-
-//Geofencing
-               for (var b = 0; b < allbirds.length; b++){
-                   console.log(allbirds.length)
-
-                   var d = map.distance(allbirds[b]['_latlng'], circle.getLatLng());
-                   var isInside = d < circle.getRadius();
-                   console.log(isInside);
-                   if (isInside){
-                       console.log("Geofencing")
-                       alert("Bird detected location")
-                       }
-                   //console.log(d)
-
-               }
-
-
-                
-
-
-
-                //var d = map.distance(e.latlng, circle.getLatLng());
-                //console.log(e.latlng)
-                //console.log(circle.getLatLng())    
-
-                //var isInside = d < circle.getRadius();
-                //console.log(isInside);
-                //if (isInside){
-                    //console.log("Geofencing")
-               // }
-                       
-            }
-
-            map.on('locationfound', onLocationFound);
-            map.locate({setView: true, watch: true, maxZoom: 8}); */// watch :true sets the users location to tracking
-
-        </script>
-    </body>
-</html>
+        map.locate({setView: true, maxZoom: 18, watch: true, enableHighAccuracy: true}); // watch :true sets the users location to tracking
+    </script>
+</body></html>
