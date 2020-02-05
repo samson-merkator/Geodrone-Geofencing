@@ -208,11 +208,11 @@
 
             // Geofencing
             for (var b = 0; b < allbirds.length; b++) {
-                console.log(allbirds.length)
+                //console.log(allbirds.length)
 
                 var d = map.distance(allbirds[b]['_latlng'], circle.getLatLng());
                 var isInside = d < circle.getRadius();
-                console.log(isInside);
+                //console.log(isInside);
                 if (isInside) {
                     console.log("Geofencing")
                     alert("Bird detected location" )
