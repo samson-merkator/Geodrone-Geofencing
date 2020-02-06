@@ -108,12 +108,16 @@
         document.getElementsByClassName('leaflet-control-geocoder-icon')[0].className += ' fa fa-search';
         document.getElementsByClassName('leaflet-control-geocoder-icon')[0].title += 'Search for a place';
          //osmGeocoder.addTo(map);
-        var baseMaps = {};
-        L.control.layers(baseMaps, { // '<img src="legend/DetectedObjects_1.png" /> DetectedObjects': layer_DetectedObjects_1,
-            //"Standard": layer_OSMStandard_0,
-            "Street": leafletstreet,
+        var baseMaps = {
+	    "Street": leafletstreet,
             "Satellite": leaflet,
             "osm":osm
+	};
+        L.control.layers(baseMaps, { // '<img src="legend/DetectedObjects_1.png" /> DetectedObjects': layer_DetectedObjects_1,
+            //"Standard": layer_OSMStandard_0,
+            //"Street": leafletstreet,
+           // "Satellite": leaflet,
+           // "osm":osm
         }, {collapsed: true}).addTo(map);
         setBounds();
         L.control.scale().addTo(map);
